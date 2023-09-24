@@ -22,29 +22,44 @@ from telegram.ext import (
 )
 from telegram.constants import ParseMode, ChatAction
 
-# def get_hose_company_only(x):
-#     return x.comGroupCode == "HOSE"
-
-# listing_companies = stock.listing_companies().values.tolist();
-# # hose_companies = filter(get_hose_company_only, listing_companies)
-
-# for comp in listing_companies:
-#     print(type(comp))
-
-# print(listing_companies)
-
 print(stock.listing_companies())
 
 class Company:
-    def __init__(self, ticker, comGroupCode):
+    def __init__(self, ticker, comGroupCode, organName, organShortName, organTypeCode, comTypeCode, icbName, icbNamePath, sector, industry, group, subgroup):
         self.ticker = ticker
         self.comGroupCode = comGroupCode
+        self.organName = organName
+        self.organShortName = organShortName
+        self.organTypeCode = organTypeCode
+        self.comTypeCode = comTypeCode
+        self.icbName = icbName
+        self.icbNamePath = icbNamePath
+        self.sector = sector
+        self.industry = industry      
+        self.group = group
+        self.subgroup = subgroup
 
 list_company = []
+print(stock.listing_companies())
 
 for index, row in stock.listing_companies().iterrows():
-    comp = Company(ticker=row['ticker'], comGroupCode=row['comGroupCode'])
-    list_company.append(comp)
+    if (row['comGroupCode'] == "HOSE"):
+        comp = Company(ticker=row['ticker'], 
+                    comGroupCode=row['comGroupCode'],
+                    organName=row['organName'], 
+                    organShortName=row['organShortName'],
+                    organTypeCode=row['organTypeCode'], 
+                    comTypeCode=row['comTypeCode'],
+                    icbName=row['icbName'], 
+                    icbNamePath=row['icbNamePath'],
+                    sector=row['sector'], 
+                    industry=row['industry'],
+                    group=row['group'], 
+                    subgroup=row['subgroup']
+                    )
+        list_company.append(comp)
 
 for comp in list_company:
-    print(f"ticker: {comp.ticker}, comGroupCode: {comp.comGroupCode}")
+    print(f"ticker: {comp.ticker}, comGroupCode: {comp.comGroupCode}, organName: {comp.organName}, organShortName: {comp.organShortName}")
+
+print(stock.company_overview("NVL"))

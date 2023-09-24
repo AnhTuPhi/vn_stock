@@ -1,0 +1,9 @@
+requests
+pandas
+google-auth
+gspread
+gspread-dataframe
+vnstock
+bs4
+python-telegram-bot[rate-limiter]==20.1
+python-dotenv==0.21.0
